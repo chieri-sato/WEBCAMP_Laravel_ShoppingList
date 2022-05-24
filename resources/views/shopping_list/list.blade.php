@@ -30,16 +30,35 @@
         <tr>
             <th>登録日
             <th>「買うもの」名
+@foreach($list as $lists)
+        <tr>
+            <td>{{ $lists->created_at->format('Y/m/d') }}
+            <td>{{ $lists->name }}
+            <td><form action="./top.html"><button>完了</button></form>
+            <td>&nbsp;&nbsp;</td>
+            <td><form action="./top.html"><button>削除</button></form>
+@endforeach
         </table>
         <!-- ページネーション -->
         {{-- {{ $list->links() }} --}}
-        現在ページ目<br>
+        現在 {{ $list->currentPage() }} ページ目<br>
+        @if ($list->onFirstPage() === false)
+        <a href="/shopping_list/list">最初のページ</a>
+        @else
         最初のページ
+        @endif
         /
-        前に戻る
+        @if ($list->previousPageUrl() !== null)
+            <a href="{{ $list->previousPageUrl() }}">前に戻る</a>
+        @else
+            前に戻る
+        @endif
         /
-        次に進む
-
+        @if ($list->nextPageUrl() !== null)
+            <a href="{{ $list->nextPageUrl() }}">次に進む</a>
+        @else
+            次に進む
+        @endif
         <br>
         <hr>
         <menu label="リンク">

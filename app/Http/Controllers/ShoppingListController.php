@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShoppingRegisterPostRequest;
 use App\Models\Shopping_list as Shopping_listModel;
+use Illuminate\Support\Facades\DB;
 
 class ShoppingListController extends Controller
 {
@@ -17,7 +18,14 @@ class ShoppingListController extends Controller
      */
     public function list()
     {
-        return view('shopping_list/list');
+        // 1Page辺りの表示アイテム数を設定
+        $per_page = 10;
+        
+        //一覧の取得
+        $list = Shopping_listModel::orderBy('name','ASC')
+                                 ->paginate($per_page);
+        
+        return view('shopping_list/list',['list' => $list]);
     }
     
     /**
