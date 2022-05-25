@@ -9,7 +9,16 @@
         <h1>「買うもの」の登録</h1>
         @if (session('front.shopping_register_success') == true)
                 「買うもの」を登録しました！！<br>
-            @endif
+        @endif
+        @if (session('front.shopping_completed_success') == true)
+                「買うもの」を完了にしました！！<br>
+        @endif
+        @if (session('front.shopping_completed_failure') == true)
+                「買うもの」の完了に失敗しました....<br>
+        @endif
+        @if (session('front.shopping_delete_success') == true)
+                「買うもの」を削除しました！！<br>
+        @endif
         @if ($errors->any())
             <div>
             @foreach ($errors->all() as $error)
@@ -34,9 +43,9 @@
         <tr>
             <td>{{ $lists->created_at->format('Y/m/d') }}
             <td>{{ $lists->name }}
-            <td><form action="./top.html"><button>完了</button></form>
-            <td>&nbsp;&nbsp;</td>
-            <td><form action="./top.html"><button>削除</button></form>
+            <td><form action="{{ route('complete', ['shopping_list_id' => $lists->id]) }}" method="post"> @csrf <button onclick='return confirm("この「買うもの」を「完了」にします。よろしいですか？");' >完了</button></form>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><form action="{{ route('delete', ['shopping_list_id' => $lists->id]) }}" method="post"> @csrf @method("DELETE") <button onclick='return confirm("この「買うもの」を「削除」します。よろしいですか？");' >削除</button></form>
 @endforeach
         </table>
         <!-- ページネーション -->
