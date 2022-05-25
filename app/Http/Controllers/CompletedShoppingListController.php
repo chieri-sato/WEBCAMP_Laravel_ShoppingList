@@ -21,8 +21,9 @@ class CompletedShoppingListController extends Controller
         $per_page = 3;
         
         //一覧の取得
-        $list = Completed_shopping_listModel::orderBy('name','ASC')
-                                 ->paginate($per_page);
+        $list = Completed_shopping_listModel::where('user_id', Auth::id())
+                                            ->orderBy('name','ASC')
+                                            ->paginate($per_page);
         
         return view('completed_shopping_list/list',['list' => $list]);
     }
