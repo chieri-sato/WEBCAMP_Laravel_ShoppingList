@@ -1,11 +1,10 @@
-@extends('admin/layout')
+@extends('admin.layout')
 
+{{-- タイトル --}}
+@section('title')(ユーザ一覧画面)@endsection
+
+{{-- メインコンテンツ --}}
 @section('contets')
-    <div style="padding-left:40px;padding-top:10px">
-        <a href="../top">管理画面Top</a><br>
-        <a href="list">ユーザ一覧</a><br>
-        <a href="../logout">ログアウト</a><br>
-    </div>
         <h1>ユーザ一覧</h1>
         <table border="1">
         <tr>
